@@ -1,0 +1,56 @@
+{
+  "name": "slushi-squad",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:local": "DATABASE_URL=postgresql://slushi:slushi@localhost:5433/slushi_squad NEXT_PUBLIC_APP_URL=http://localhost:3000 ADMIN_EMAIL=admin@slushisquad.local ADMIN_PASSWORD=change-me ADMIN_SESSION_SECRET=local-dev-slushi-secret ENABLE_ADULT_BOOSTERS=false VENMO_HANDLE=@SlushiSquad CASH_APP_HANDLE=SlushiSquad next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "db:setup": "npm run db:up && npm run db:wait && npm run prisma:deploy && npm run prisma:seed",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "tsx prisma/seed.ts",
+    "db:wait": "node scripts/wait-for-db.mjs",
+    "prisma:deploy": "prisma migrate deploy",
+    "demo:seed": "tsx scripts/seed-demo-orders.ts",
+    "demo:reset": "tsx scripts/seed-demo-orders.ts --reset",
+    "prod:check": "tsx scripts/check-production-readiness.mjs",
+    "prod:migrate": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "@stripe/stripe-js": "^5.10.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "next": "^15.1.0",
+    "prisma": "^6.9.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stripe": "^17.5.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.1.0",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^4.1.8"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

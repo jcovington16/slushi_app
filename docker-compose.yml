@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: slushi-squad-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: slushi
+      POSTGRES_PASSWORD: slushi
+      POSTGRES_DB: slushi_squad
+    ports:
+      - "5433:5432"
+    volumes:
+      - slushi_squad_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U slushi -d slushi_squad"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  slushi_squad_pgdata:
