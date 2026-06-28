@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:local": "DATABASE_URL=postgresql://slushi:slushi@localhost:5433/slushi_squad NEXT_PUBLIC_APP_URL=http://localhost:3000 ADMIN_EMAIL=admin@slushisquad.local ADMIN_PASSWORD=change-me ADMIN_SESSION_SECRET=local-dev-slushi-secret ENABLE_ADULT_BOOSTERS=false VENMO_HANDLE=@SlushiSquad CASH_APP_HANDLE=SlushiSquad next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && prisma migrate deploy && prisma db seed && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
